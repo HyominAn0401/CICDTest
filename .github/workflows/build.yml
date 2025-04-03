@@ -15,16 +15,16 @@ jobs:
       - name: Build Docker image (includes Packer + AWS CLI)
         run: docker build -t packer-aws-image .
 
-      - name: Run Packer init, fmt, validate, build
+      - name: Run Packer (init + validate + build)
         run: |
           docker run --rm \
             -e AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
             -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
-            -v ${{ github.workspace }}/packer_tutorial:/workspace \
+            -v ${{ github.workspace }}/packer:/workspace \
             -w /workspace \
-            packer-aws-image /bin/sh -c "
+            packer-aws-image /bin/bash -c "
               packer init . && \
               packer fmt . && \
-              packer validate . && \
-              packer build aws-ubuntu.pkr.hcl
+              packer validate test.pkr.hcl && \
+              packer build test.pkr.hcl
             "
