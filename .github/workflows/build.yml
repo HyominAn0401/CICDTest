@@ -22,7 +22,7 @@ jobs:
             -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
             -v ${{ github.workspace }}/packer:/workspace \
             -w /workspace \
-            packer-aws-image packer init .
+            packer-aws-image /bin/sh -c "packer init ."
 
       - name: Run Packer validate
         run: |
@@ -31,7 +31,7 @@ jobs:
             -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
             -v ${{ github.workspace }}/packer:/workspace \
             -w /workspace \
-            packer-aws-image packer validate .
+            packer-aws-image /bin/sh -c "packer validate ."
 
       - name: Run Packer build
         run: |
@@ -40,4 +40,4 @@ jobs:
             -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
             -v ${{ github.workspace }}/packer:/workspace \
             -w /workspace \
-            packer-aws-image packer build aws-ubuntu.pkr.hcl
+            packer-aws-image /bin/sh -c "packer build aws-ubuntu.pkr.hcl"
