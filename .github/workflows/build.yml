@@ -22,4 +22,4 @@ jobs:
             -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
             -v ${{ github.workspace }}/packer:/workspace \
             -w /workspace \
-            packer-aws-image sh -c "packer init . && packer validate . && packer build aws-ubuntu.pkr.hcl"
+            packer-aws-image /bin/sh -c "init . && validate . && build aws-ubuntu.pkr.hcl"
