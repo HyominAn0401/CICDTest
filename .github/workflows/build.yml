@@ -15,29 +15,11 @@ jobs:
       - name: Build Docker image with Packer + AWS CLI
         run: docker build -t packer-aws-image .
 
-      - name: Run Packer init
+      - name: Run Packer (init + validate + build)
         run: |
           docker run --rm \
             -e AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
             -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
             -v ${{ github.workspace }}/packer:/workspace \
             -w /workspace \
-            packer-aws-image init .
-
-      - name: Run Packer validate
-        run: |
-          docker run --rm \
-            -e AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
-            -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
-            -v ${{ github.workspace }}/packer:/workspace \
-            -w /workspace \
-            packer-aws-image validate .
-
-      - name: Run Packer build
-        run: |
-          docker run --rm \
-            -e AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
-            -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
-            -v ${{ github.workspace }}/packer:/workspace \
-            -w /workspace \
-            packer-aws-image build aws-ubuntu.pkr.hcl
+            packer-aws-image sh -c "packer init . && packer validate . && packer build aws-ubuntu.pkr.hcl"
