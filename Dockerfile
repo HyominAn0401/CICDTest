@@ -1,6 +1,8 @@
 FROM ubuntu:22.04
 
-# 필수 패키지 설치
+ENV DEBIAN_FRONTEND=noninteractive \
+    TZ=Asia/Seoul
+
 RUN apt-get update && \
     apt-get install -y \
     curl \
@@ -10,7 +12,8 @@ RUN apt-get update && \
     python3 \
     python3-pip \
     awscli \
-    bash
+    bash \
+    tzdata
 
 # HashiCorp GPG 키 및 Packer 설치
 RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg && \
