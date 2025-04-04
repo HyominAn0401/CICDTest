@@ -10,7 +10,6 @@ packer {
 variable "base_ami" {
   type        = string
   default     = "ami-05a7f3469a7653972"
-  description = "AMI ID"
 }
 
 source "amazon-ebs" "ubuntu-ansible" {
