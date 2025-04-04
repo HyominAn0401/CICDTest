@@ -9,7 +9,8 @@ packer {
 
 variable "instance_id" {
   type        = string
-  description = "i-00f7635259be3754e"
+  default     = "i-00f7635259be3754e"
+  description = "EC2 Instance ID"
 }
 
 source "amazon-ebs" "existing-ec2" {
@@ -24,8 +25,4 @@ source "amazon-ebs" "existing-ec2" {
 build {
   name    = "create-ami-from-existing-ec2"
   sources = ["source.amazon-ebs.existing-ec2"]
-
-  provisioner "ansible" {
-    playbook_file = "./playbook.yml"           # 여기에 role 적용 playbook 지정
-  }
 }
