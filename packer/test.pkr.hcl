@@ -10,6 +10,7 @@ packer {
 variable "base_ami" {
   type        = string
   default     = "ami-05a7f3469a7653972"
+  description = "AMI ID"
 }
 
 source "amazon-ebs" "ubuntu-ansible" {
@@ -21,9 +22,9 @@ source "amazon-ebs" "ubuntu-ansible" {
   ami_name         = "custom-ami-from-ansible-{{timestamp}}"
   ami_description  = "Created by Packer + Ansible with fixed VPC setting"
 
-  subnet_id        = "subnet-0f145b66fff04c74c"     # ✅ 퍼블릭 서브넷
-  security_group_id = "sg-0817758f51fa89740"        # ✅ SSH 포함 SG
-  associate_public_ip_address = true                # ✅ 퍼블릭 IP 붙이기 (SSH용)
+  subnet_id        = "subnet-0f145b66fff04c74c"     
+  security_group_id = "sg-0817758f51fa89740" 
+  associate_public_ip_address = true
 }
 
 build {
