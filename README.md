@@ -1,4 +1,5 @@
 # CICDTest
 
 - github actions + dockerfile
-- generate aws ami on my aws account
+- generate aws ami using Packer on my aws account
+- aws ebs
